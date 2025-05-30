@@ -4,6 +4,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -26,9 +28,9 @@ public final class Main {
                         .register(Commands.literal("print_solid_blocks")
                                 .executes(ctx -> {
                                     try {
-                                        var string = BuiltInRegistries.BLOCK.stream().filter(a -> a.isShapeFullBlock(a.getShape(
+                                        var string = BuiltInRegistries.BLOCK.stream().filter(a -> !(a instanceof BaseEntityBlock) && (a.isShapeFullBlock(a.getShape(
                                                         a.defaultBlockState(), Minecraft.getInstance().level, BlockPos.ZERO, CollisionContext.empty()
-                                                )) && a.defaultBlockState().isSolid())
+                                                )) && a.defaultBlockState().isSolid()))
                                                 .map(a -> a.builtInRegistryHolder())
                                                 .map(a -> a.key())
                                                 .map(a -> a.location())
