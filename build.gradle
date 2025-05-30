@@ -14,7 +14,7 @@ loom {
     silentMojangMappingsLicense()
 
     forge {
-        mixinConfig 'example_mod.mixins.json'
+        mixinConfig 'multipart.mixins.json'
     }
 }
 
